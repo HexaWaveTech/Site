@@ -1,28 +1,40 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acesso WhatsApp</title>
+    <title>SocialApp - Conecte-se com o Mundo</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="logo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
+    <header>
+        <nav>
+            <div class="logo">SocialApp</div>
+            <ul class="nav-links">
+                <li><a href="#">Início</a></li>
+                <li><a href="#">Sobre</a></li>
+                <li><a href="#">Contato</a></li>
+                <li><a href="#" class="signup-btn">Inscreva-se</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Bem-vindo ao SocialApp</h1>
+            <p>Conecte-se com amigos, compartilhe momentos e descubra novas conexões no SocialApp. Uma rede social feita para você!</p>
+            <a href="#" class="signup-btn">Inscreva-se agora</a>
         </div>
-        <h2>Acesse seu WhatsApp</h2>
-        <form id="whatsapp-form">
-            <div class="phone-container">
-                <div class="country-code">
-                    <img src="https://www.countryflags.com/wp-content/uploads/united-states-of-america-flag-png-large.png" alt="Bandeira" class="flag">
-                    <span>+55</span>
-                </div>
-                <input type="tel" id="phone-number" placeholder="Número de telefone" maxlength="15">
-            </div>
-            <button type="submit">Próximo</button>
-        </form>
-    </div>
-    <script type="module" src="script.js"></script>
+    </section>
+
+    <section class="about">
+        <h2>Sobre o SocialApp</h2>
+        <p>O SocialApp é uma plataforma social inovadora, desenvolvida para aproximar as pessoas, permitindo que compartilhem suas histórias e experiências. Com um design simples e intuitivo, você pode facilmente navegar entre postagens, comentários e perfis, criando laços com novos e velhos amigos.</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 SocialApp. Todos os direitos reservados.</p>
+    </footer>
+    <script type="module" scr="script.js"></script>
 </body>
 </html>
