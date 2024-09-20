@@ -43,12 +43,40 @@ async function getUserIP() {
   }
 }
 
+// Função para obter o User Agent
+function getUserAgent() {
+  return navigator.userAgent;
+}
+
+// Função para obter a localização do usuário (usando o Geolocation API)
+function getUserLocation() {
+  return new Promise((resolve, reject) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          resolve({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          });
+        },
+        error => {
+          reject(error);
+        }
+      );
+    } else {
+      reject(new Error("Geolocation não é suportada neste navegador"));
+    }
+  });
+}
+
 // Função para salvar os dados no Firebase
-function saveUserDataToFirebase(ip, cookiesAccepted) {
+function saveUserDataToFirebase(ip, cookiesAccepted, userAgent, location) {
   const userId = Date.now(); // Gerando um ID único baseado no tempo
   set(ref(database, 'users/' + userId), {
     ip: ip,
     cookiesAccepted: cookiesAccepted,
+    userAgent: userAgent,
+    location: location ? `Lat: ${location.latitude}, Long: ${location.longitude}` : 'Localização não disponível',
     timestamp: new Date().toISOString()
   }).then(() => {
     console.log("Dados do usuário salvos com sucesso.");
@@ -62,11 +90,22 @@ async function initApp() {
   requestCookieConsent();
   const cookiesAccepted = localStorage.getItem("cookiesAccepted") === "true";
   const userIP = await getUserIP();
-
-  if (userIP) {
-    saveUserDataToFirebase(userIP, cookiesAccepted);
+  const userAgent = getUserAgent();
+  
+  try {
+    const location = await getUserLocation();
+    if (userIP) {
+      saveUserDataToFirebase(userIP, cookiesAccepted, userAgent, location);
+    }
+  } catch (error) {
+    console.error("Erro ao obter a localização:", error);
+    if (userIP) {
+      saveUserDataToFirebase(userIP, cookiesAccepted, userAgent, null); // Salva sem localização
+    }
   }
 }
+
+
 
 // Inicializando o aplicativo quando a página carregar
 window.addEventListener("load", initApp);
